@@ -5,17 +5,20 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
-from .users.views import UserViewSet, UserCreateViewSet
+# from .users.views import UserViewSet, UserCreateViewSet
 
-router = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'users', UserCreateViewSet)
+# router = DefaultRouter()
+# router.register(r'users', UserViewSet)
+# router.register(r'users', UserCreateViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),
+    
     path('api-token-auth/', views.obtain_auth_token),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('api/v1/user/', include('piedpiper.users.urls')),
 
     # the 'api-root' from django rest-frameworks default router
     # http://www.django-rest-framework.org/api-guide/routers/#defaultrouter
